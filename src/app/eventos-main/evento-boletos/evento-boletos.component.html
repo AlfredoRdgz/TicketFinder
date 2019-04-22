@@ -1,0 +1,33 @@
+<h3 style="text-align:center;">Asientos seleccionados</h3>
+<div id="cardContainer" style="height:350px; overflow-y: scroll;">
+  <div class="container ticket-card" *ngFor="let boleto of asientosSeleccionados">
+    <div class="row">
+      <table class="table ticket-table">
+        <tr>
+          <th style="text-align:center;">Tipo</th>
+          <th style="text-align:center;">Fila</th>
+          <th style="text-align:center;">Asiento</th>
+        </tr>
+        <tr>
+          <td style="text-align:center;">Normal</td>
+          <td style="text-align:center;">{{boleto.fila}}</td>
+          <td style="text-align:center;">{{boleto.asiento}}</td>
+        </tr>
+      </table>
+    </div>
+    <hr>
+    <table class="table">
+      <tr>
+        <th style="text-align:right;">Precio</th>
+        <td style="text-align:center;">${{boleto.costo}}</td>
+      </tr>
+    </table>
+    <button (click)="cancelarBoleto(boleto)" *ngIf="cancelable">
+      X
+    </button>
+  </div>
+</div>
+
+<p style="text-align:center; font-size:26px;">
+    <strong>Total:</strong> ${{this.servicioCompra.costoTotal()}}
+  </p>

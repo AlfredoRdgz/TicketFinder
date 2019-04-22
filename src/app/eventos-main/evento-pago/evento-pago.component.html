@@ -1,0 +1,74 @@
+  <div class="row">
+      <div class="col-md-6" style="margin-top:20px;">
+          <div class="container">
+              <form class="form-login">
+                  <h2 style="text-align:center;">Datos de pago</h2>
+                  <div class="form-group">
+                    <label for="payNumber">Tipo de tarjeta o pago:</label>
+                    <select class="form-control">
+                      <option disabled selected>Seleccione uno</option>
+                      <option value="Visa">Visa</option>
+                      <option value="Mastercard">Mastercard</option>
+                      <option value="American Express">American Express</option>
+                      <option value="PayPal">PayPal</option>
+                      <option value="Google Pay">Google Pay</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label for="payNumber">Nombre del tarjetahabiente:</label>
+                    <input class="form-control" type="text" id="payNumber">
+                  </div>
+                  <div class="form-group">
+                    <label for="payNumber">Número de tarjeta:</label>
+                    <input class="form-control" type="text" id="payNumber">
+                  </div>
+                  <div class="form-group">
+                    <label for="payCode">Código de seguridad:</label>
+                    <input class="form-control" type="password" id="payCode" maxlength="3">
+                  </div>
+                  <div class="form-group">
+                    <label for="payDate">Fecha de vencimiento:</label>
+                    <input class="form-control" type="date" id="payDate">
+                  </div>
+                  <div class="form-group">
+                    <label for="payMail">Correo electrónico:</label>
+                    <input type="email" class="form-control" id="payMail">
+                  </div>
+                  <div class="form-group">
+                    <button class="btn btn-lg btn-primary btn-block btn-signin">Pagar</button>
+                  </div>
+                </form>
+          </div>
+        </div>
+    
+    
+        <!--pop-ups-->
+        <div class="paypal_prompt" hidden>
+          <div class="form-group">
+            <label for="paypal_username">Correo electrónico</label>
+            <input class="form-control" class="form-control" type="text" name="paypal_user" id="paypal_username">
+          </div>
+          <div>
+            <label for="paypal_password">Contraseña</label>
+            <input class="form-control" class="form-control" type="password" name="paypal_pass" id="paypal_password">
+            <!--Uso de API-->
+          </div>
+        </div>
+        <div class="googlePay_prompt" hidden>
+          <div class="form-group">
+            <!--funciona con cuenta de google
+              saltarse el pedir usuario y contraseña si está conectado con google
+              ver qué onda si no ha puesto tarjetas como pago-->
+            <label for="google_pay_username">Cuenta de Google</label>
+            <input class="form-control" class="form-control" type="text" name="google_pay_user" id="google_pay_username">
+          </div>
+          <div class="form-group">
+            <label for="google_pay_password">Contraseña</label>
+            <input class="form-control" class="form-control" type="password" name="google_pay_pass" id="googe_pay_password">
+          </div>
+        </div>
+    
+        <app-evento-boletos class="col-md-6" [cancelable]=false></app-evento-boletos>
+  </div>  
+    
+   

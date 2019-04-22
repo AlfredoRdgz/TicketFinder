@@ -1,0 +1,82 @@
+.body {
+    margin: 0px;
+    font-size: 28px;
+    -family: Arial, Helvetica, sans-serif;
+}
+
+.payment {
+    background-color: #c1c1c1;
+    padding: 20px;
+}
+
+.pay_form {
+    width: 80%;
+    margin-left: 10%;
+    margin: 20px;
+}
+
+.pay_form button {
+    text-align: center;
+    margin: 20px;
+    padding: 5px;
+}
+
+.transaction {
+
+    padding: 20px;
+    width: 80%;
+    margin-left: 10%;
+    background-color: #f6f6f6;
+}
+
+.transaction table {
+    border: 1px solid #dfe4e7;
+}
+
+.transaction td {
+    margin: 20px;
+    padding: 5px;
+}
+
+.transaction td:nth-child(2n) {
+    text-align: center;
+}
+
+.transaction td:first-child {
+    font-weight: bold;
+}
+
+/*************************/
+#eventInfo {
+    background: #2196F3;
+    color: white;
+}
+
+#eventImage img {
+    width: 200px;
+    height: 140px;
+}
+
+#eventDesc tr * {
+    padding: 0;
+    margin: 20px 0;
+}
+
+@media screen and (max-width:540px) {
+    #eventImage {
+        width: 100%;
+        height: auto;
+        text-align: center;
+    }
+
+    #eventImage img {
+        width: 150px;
+        height: 150px;
+        border-radius: 100%;
+    }
+
+    #eventDesc {
+        padding: 0 20px !important;
+    }
+
+}

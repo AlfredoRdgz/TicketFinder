@@ -1,0 +1,70 @@
+<div style="padding:20px;">
+    <div class="row col-lg-2 col-md-2 col-sm-3  col-12" style="float:left">
+        <p style="font-size: 25px; text-align: center; width:100%;">Boletos:</p></div>
+    <div class="row col-lg-4 col-md-5 col-sm-5 col-12" style="float:left;">
+        <button id="lessSeats" class="btn btn-primary btn-circle" style="color:white; width:40px; height:40px; margin-left:calc((100% - 180px) / 2); border-radius:20px; "
+        (click)="quitarDisponibles()">-</button>
+        <p id="seatsAvailable" style="width:100px; text-align:center; font-size:24px;">{{this.servicioCompra.boletosPorComprar}}</p>
+        <button id="moreSeats" class="btn btn-primary btn-circle" style="color:white;  width:40px; height:40px; border-radius:20px; "
+          (click)="aumentarDisponibles()">+</button>
+    </div>
+  
+    <div class="row col-lg-3 col-md-3 col-sm-4  col-12" style="float:left">
+        <p style="font-size: 25px; width:50%; text-align: center">Precio:</p>
+        <p style="font-size: 25px; width:50%; text-align: center">${{this.servicioCompra.costoTotal()}}</p>
+    </div>
+  
+    <div class="row col-lg-3 col-md-2 col-12" id="buyButtonContainer" style="float:left">
+          <button class="btn" (click)="enviarAComprar()"
+          style="background:limegreen; text-align: center; color:white; text-transform: uppercase; width:150px; margin-left: calc((100% - 150px) / 2);"
+          >
+          Comprar
+          </button>
+    </div>
+  
+  </div>
+  
+  <div>
+
+      <div class="container col-md-6 col-12" style="background:#e8ecf2; float: left">
+          <h3 style="text-align:center">Vista de evento</h3>
+          <table id="seats-description"
+            style="margin-top:20px; max-width:320px; margin-left:calc((100% - 320px) / 2)!important;">
+            <tr>
+              <div class="row">
+                <div class="row col-6" style="text-align:cent">
+                  <img src="{{asientoDisponible}}">
+                  <p>Disponible</p>
+                </div>
+                <div class="col-6">
+                  <img src="{{asientoOcupado}}">
+                  <p>Ocupado</p>
+                </div>
+                <div class="row col-6">
+                  <img src="{{asientoSeleccionado}}">
+                  <p>Seleccionado</p>
+                </div>
+                <div class="row col-6">
+                  <img src="{{asientoDiscapacidad}}">
+                  <p>Discapacidad</p>
+                </div>
+              </div>
+            </tr>
+          </table>
+          <div class="container col-12" style="overflow-x: scroll!important; max-width:600px;">
+            <table id="seats-layout" align="center">
+              <tr *ngFor="let fila of filas" id="fila{{fila}}">
+                <td>{{fila}}</td>
+                <td *ngFor="let asiento of columnas" (click)="elegirBoleto($event,fila,asiento)" id="asiento{{asiento}}">
+                  <p>{{asiento}}</p><img src="{{asientoDisponible}}">
+                </td>
+                <td>{{fila}}</td>
+              </tr>
+            </table>
+          </div>
+        </div>
+      
+        <div class="container col-md-6 col-12" style="text-align:center; background: #f6f6f6; float: left">
+          <app-evento-boletos [cancelable]=true></app-evento-boletos>
+        </div>
+      

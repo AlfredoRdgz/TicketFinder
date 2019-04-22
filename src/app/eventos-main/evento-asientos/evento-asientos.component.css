@@ -1,0 +1,31 @@
+#seats-layout {
+    margin-top: 20px;
+  }
+  
+  #seats-layout p {
+    display: table-cell;
+    position: absolute;
+    font-size: 12px;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    font-weight: bold;
+    width: 35px;
+    line-height: 25px;
+  }
+  
+  #seats-layout img {
+    width: 35px;
+    height: 30px;
+    vertical-align: top;
+    display: inline-block;
+  }
+  
+  table#seats-description img {
+    float: left;
+  }
+  
+  table#seats-description p {
+    margin: 0 10px;
+    float: left;
+  }
