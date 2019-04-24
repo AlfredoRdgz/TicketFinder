@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Boleto } from './Boleto';
+import { Pago } from './Pago';
 import { EventoServiceService } from './evento-service.service';
 
 @Injectable({
@@ -9,6 +10,7 @@ export class ServicioCompraService{
 
   asientosSeleccionados = [];
   boletosPorComprar = 0;
+  datosCompra:Pago;
 
   constructor(private servicioEvento:EventoServiceService) { }
 
@@ -49,6 +51,17 @@ export class ServicioCompraService{
 
   verBoleto(fila, asiento):Boleto{
     return this.asientosSeleccionados.find( (boleto => boleto.fila === fila && boleto.asiento === asiento));
+  }
+
+  confirmarCompra(formulario:any):void{
+    this.datosCompra = new Pago(formulario.opcion,formulario.nombre,formulario.numero,formulario.codigo,formulario.fecha,formulario.correo,this.costoTotal());
+  }
+
+  detallesCompra():Pago{
+    if(this.datosCompra){
+      return this.datosCompra;
+    }
+    return null;
   }
 
 }

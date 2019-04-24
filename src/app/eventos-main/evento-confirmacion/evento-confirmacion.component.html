@@ -1,0 +1,65 @@
+<div class="row">
+  <div class="col-md-6">
+    <div class="container">
+      <div class="widget">
+        <h1 class="widget-title" style="text-align: center">Confirmación de compra</h1>
+        <p style="width:100%; font-weight:bold; text-align: center">¡Su compra ha sido registrada con éxito!</p>
+        <h4 class="widget-title">Detalles del comprador</h4>
+        <div class="summary-block">
+          <div class="summary-content">
+            <div class="summary-head">
+              <h5 class="summary-title">Tipo de tarjeta</h5>
+            </div>
+            <div class="summary-price">
+              <p class="summary-text">{{detallePago.opcion}}</p>
+            </div>
+          </div>
+        </div>
+        <div class="summary-block">
+          <div class="summary-content">
+            <div class="summary-head">
+              <h5 class="summary-title">Nombre del cliente</h5>
+            </div>
+            <div class="summary-price">
+              <p class="summary-text">{{detallePago.nombre}}</p>
+            </div>
+          </div>
+        </div>
+        <div class="summary-block">
+          <div class="summary-content">
+            <div class="summary-head">
+              <h5 class="summary-title">Número de tarjeta</h5>
+            </div>
+            <div class="summary-price">
+              <p class="summary-text">{{detallePago.numero}}</p>
+            </div>
+          </div>
+        </div>
+        <div class="summary-block">
+          <div class="summary-content">
+            <div class="summary-head">
+              <h5 class="summary-title">Fecha de vencimiento</h5>
+            </div>
+            <div class="summary-price">
+              <p class="summary-text">{{detallePago.fecha}}</p>
+            </div>
+          </div>
+        </div>
+        <div class="summary-block">
+          <div class="summary-content">
+            <div class="summary-head">
+              <h5 class="summary-title">Correo de confirmación</h5>
+            </div>
+            <div class="summary-price">
+              <p class="summary-text">{{detallePago.correo}}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <app-evento-boletos class="col-md-6" [cancelable]=false></app-evento-boletos>
+
+</div>

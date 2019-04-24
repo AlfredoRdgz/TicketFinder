@@ -1,5 +1,3 @@
-import { Evento } from './Evento';
-
 export class Boleto {
     constructor(
         public idEvento: number,

@@ -2,9 +2,9 @@
   <h2>Ticket Finder</h2>
   <p>Listos para tu evento favorito</p>
   <div class="search-container">
-    <form id="search-form" class="row" action="#">
-      <input id="search-input" type="text" placeholder="Buscar.." name="search">
-      <button type="submit"><i class="fa fa-search"></i></button>
+    <form id="search-form" class="row" action="#" *ngIf="listaEventos" [formGroup]="buscador">
+      <input id="search-input" type="text" placeholder="Buscar.." name="search" formControlName="busqueda">
+      <button type="submit" (click)="buscar()" [disabled]="!buscador.valid"><i class="fa fa-search"></i></button>
     </form>
   </div>
 </div>

@@ -71,7 +71,7 @@ export class EventoAsientosComponent implements OnInit {
     if (this.servicioCompra.boletosPorComprar > 0) {
       this.servicioCompra.reducirDisponibles();
       // Si son menos los que se van a comprar que los seleccionados, se descartan los necesarios
-      for (let i = this.servicioCompra.boletosPorComprar; i < this.asientosSeleccionados.length; i++) {
+      for (let i = this.servicioCompra.boletosPorComprar; i < this.servicioCompra.asientosSeleccionados.length; i++) {
         let asientoPorQuitar = this.servicioCompra.quitarPrimero();
         document.querySelector(`#fila${asientoPorQuitar.fila} #asiento${asientoPorQuitar.asiento}`).querySelector('img').src = this.asientoDisponible;
       }

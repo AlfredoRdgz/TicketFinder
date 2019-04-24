@@ -1,11 +1,11 @@
   <div class="row">
       <div class="col-md-6" style="margin-top:20px;">
           <div class="container">
-              <form class="form-login">
+              <form class="form-login" [formGroup]="formulario" action="#">
                   <h2 style="text-align:center;">Datos de pago</h2>
                   <div class="form-group">
-                    <label for="payNumber">Tipo de tarjeta o pago:</label>
-                    <select class="form-control">
+                    <label for="payType">Tipo de tarjeta o pago:</label>
+                    <select id="payType" class="form-control" formControlName="opcion">
                       <option disabled selected>Seleccione uno</option>
                       <option value="Visa">Visa</option>
                       <option value="Mastercard">Mastercard</option>
@@ -15,27 +15,27 @@
                     </select>
                   </div>
                   <div class="form-group">
-                    <label for="payNumber">Nombre del tarjetahabiente:</label>
-                    <input class="form-control" type="text" id="payNumber">
+                    <label for="payName">Nombre del tarjetahabiente:</label>
+                    <input class="form-control" type="text" id="payName" formControlName="nombre">
                   </div>
                   <div class="form-group">
                     <label for="payNumber">Número de tarjeta:</label>
-                    <input class="form-control" type="text" id="payNumber">
+                    <input class="form-control" type="text" id="payNumber" formControlName="numero">
                   </div>
                   <div class="form-group">
                     <label for="payCode">Código de seguridad:</label>
-                    <input class="form-control" type="password" id="payCode" maxlength="3">
+                    <input class="form-control" type="password" id="payCode" maxlength="3" formControlName="codigo">
                   </div>
-                  <div class="form-group">
+                  <div class="form-group" >
                     <label for="payDate">Fecha de vencimiento:</label>
-                    <input class="form-control" type="date" id="payDate">
+                    <input class="form-control" type="date" id="payDate" formControlName="fecha">
                   </div>
-                  <div class="form-group">
+                  <div class="form-group" >
                     <label for="payMail">Correo electrónico:</label>
-                    <input type="email" class="form-control" id="payMail">
+                    <input type="email" class="form-control" id="payMail" formControlName="correo">
                   </div>
                   <div class="form-group">
-                    <button class="btn btn-lg btn-primary btn-block btn-signin">Pagar</button>
+                    <button class="btn btn-lg btn-primary btn-block btn-signin" (click)="submit()" [disabled]="!formulario.valid">Pagar</button>
                   </div>
                 </form>
           </div>
