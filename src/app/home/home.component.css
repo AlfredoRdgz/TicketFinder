@@ -1,0 +1,12 @@
+#botonEventos{
+    color:white; 
+    width:250px;
+    height: 100px; padding: 10px; text-align: center; margin-left:calc((100% - 250px) / 2); position:relative; top:200px;
+}
+
+
+@media screen and (max-width:768px){
+    #botonEventos{
+        top:50px;
+    }
+}

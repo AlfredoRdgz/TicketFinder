@@ -9,7 +9,7 @@ export class EventoServiceService {
   ultimoID = 1;
   listaEventos: Evento[] = [
     {id:this.ultimoID++,nombre:'Avengers Endgame',descripcion:'Película',fecha:'20/04/2019',hora:'20:00',lugar:'Cinepolis Ciudadela',filas:10,asientosXFila:15,boletos:[]},
-    {id:this.ultimoID++,nombre:'Avengers Endgame',descripcion:'Película',fecha:'20/04/2019',hora:'15:00',lugar:'Cinepolis Galerías',filas:10,asientosXFila:15,boletos:[]}
+    {id:this.ultimoID++,nombre:'Avengers Endgame',descripcion:'Película',fecha:'20/04/2019',hora:'15:00',lugar:'Cinepolis Galerías',filas:15,asientosXFila:20,boletos:[]}
   ];
 
   constructor() { }

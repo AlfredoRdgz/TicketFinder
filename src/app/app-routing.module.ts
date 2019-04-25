@@ -6,10 +6,11 @@ import { EventoCompraComponent } from './eventos-main/evento-compra/evento-compr
 import { EventoPagoComponent } from './eventos-main/evento-pago/evento-pago.component';
 import { EventoAsientosComponent } from './eventos-main/evento-asientos/evento-asientos.component';
 import { EventoConfirmacionComponent } from './eventos-main/evento-confirmacion/evento-confirmacion.component';
+import { HomeComponent } from './home/home.component';
 
 const routes: Routes = [
-  {path:'',component:EventosMainComponent},
-  {path: 'home',component:EventosMainComponent},
+  {path:'',component:HomeComponent},
+  {path: 'home',component:HomeComponent},
   {path: 'eventos',component:EventosListaComponent},
   {path: 'eventos/:id', component: EventoCompraComponent,children:[
     {path: '',component:EventoAsientosComponent},
