@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { EventoServiceService } from '../eventos-main/evento-service.service';
 
 @Component({
   selector: 'app-header',
@@ -8,7 +10,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 })
 export class HeaderComponent implements OnInit {
 
-  constructor() { }
+  constructor(private servicioEventos:EventoServiceService,private router:Router) { }
   listaEventos = true;
   buscador:FormGroup;
 
@@ -22,8 +24,11 @@ export class HeaderComponent implements OnInit {
       });
     }
     buscar() {
-      console.log("Llega");
-      console.log(this.buscador.value);
+      // Asignar una variable de búsqueda en el servicio
+      this.servicioEventos.asignarBusqueda(this.buscador.value.busqueda);
+      // Borro el valor del formulario
       this.buscador.reset();
+      // Navegar al buscador de eventos
+      this.router.navigate(['eventos']);
     }
 }

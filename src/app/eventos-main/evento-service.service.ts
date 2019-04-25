@@ -11,6 +11,7 @@ export class EventoServiceService {
     {id:this.ultimoID++,nombre:'Avengers Endgame',descripcion:'Película',fecha:'20/04/2019',hora:'20:00',lugar:'Cinepolis Ciudadela',filas:10,asientosXFila:15,boletos:[]},
     {id:this.ultimoID++,nombre:'Avengers Endgame',descripcion:'Película',fecha:'20/04/2019',hora:'15:00',lugar:'Cinepolis Galerías',filas:15,asientosXFila:20,boletos:[]}
   ];
+  palabraBusqueda:String = '';
 
   constructor() { }
 
@@ -29,7 +30,14 @@ export class EventoServiceService {
     // Actualizar el emisor de detalles si corresponde
   }
 
+  asignarBusqueda(palabra:String){
+    this.palabraBusqueda = palabra;
+    console.log("Palabra: "+this.palabraBusqueda);
+  }
+
   obtenerEventos(): Evento[]{
+    // Obtener los eventos de la BD que coincidan con palabraBusqueda y asignarlo a la lista de eventos
+    this.palabraBusqueda = '';
     return this.listaEventos;
   }
 
