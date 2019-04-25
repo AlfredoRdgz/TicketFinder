@@ -1,3 +1,36 @@
-<p>
-  login works!
-</p>
+<div class="container">
+  <h1 style="text-align:center">Inicia sesión</h1>
+</div>
+
+<div class="row">
+  <div class="container col-md-6">
+    <form class="form-signin userLogin" [formGroup]="formulario" action="#">
+      <h4>Cuenta Ticket Finder</h4>
+      <div class="form-group">
+        <label for="login_username">Usuario</label>
+        <input class="form-control" type="text" id="login_username"  formControlName="usuario">
+      </div>
+      <div class="form-group">
+        <label for="login_password">Contraseña</label>
+        <input class="form-control" type="password" id="login_password"  formControlName="contrasena">
+      </div>
+      <div class="form-group">
+        <button id="btnLogin" class="btn btn-lg btn-primary btn-block btn-signin" (click)="iniciarSesion()">Iniciar</button>
+      </div>
+    </form>
+    <p style="font-size:16px; text-align:center;">¿Aún no eres usuario? <a href="#" routerLink="/registro">Regístrate</a> </p>
+  </div>
+  <div class="container col-md-6">
+    <div class="userLogin" style="position:relative; top: 25%;">
+      <h5>Inicia sesión con tus redes sociales</h5>
+        <button id="btnGoogle" class="btn btn-lg btn-primary btn-block btn-signin"><img src="assets/images/googleLogo.png"
+            style="width:25px; height:25px"> &nbsp; Inciar sesión con
+          Google</button>
+        <!--API de Google para cambiar imagen por botón de Google-->
+        <button id="btnFacebook" class="btn btn-lg btn-primary btn-block btn-signin"><img src="assets/images/facebookLogo.png"
+            style="width:25px; height:25px"> &nbsp; Iniciar Sesión con
+          Facebook</button>
+        <!--API de Facebook para botón de FB-->
+    </div>
+  </div>
+</div>
