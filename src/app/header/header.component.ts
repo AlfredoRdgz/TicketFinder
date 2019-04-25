@@ -31,4 +31,13 @@ export class HeaderComponent implements OnInit {
       // Navegar al buscador de eventos
       this.router.navigate(['eventos']);
     }
+
+    displayResponsive() {
+      let x = document.getElementById("myTopnav");
+      if (!x.classList.contains('responsive')) {
+        x.classList.add('responsive');
+      } else {
+        x.classList.remove('responsive');
+      }
+    }
 }
