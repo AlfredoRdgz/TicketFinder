@@ -16,6 +16,7 @@ import { EventoAsientosComponent } from './eventos-main/evento-asientos/evento-a
 import { EventoPagoComponent } from './eventos-main/evento-pago/evento-pago.component';
 import { EventoConfirmacionComponent } from './eventos-main/evento-confirmacion/evento-confirmacion.component';
 import { EventosAdminComponent } from './eventos-main/eventos-admin/eventos-admin.component';
+import { RegistroComponent } from './registro/registro.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { EventosAdminComponent } from './eventos-main/eventos-admin/eventos-admi
     EventoAsientosComponent,
     EventoPagoComponent,
     EventoConfirmacionComponent,
-    EventosAdminComponent
+    EventosAdminComponent,
+    RegistroComponent
   ],
   imports: [
     BrowserModule,

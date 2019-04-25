@@ -9,6 +9,7 @@ import { EventoConfirmacionComponent } from './eventos-main/evento-confirmacion/
 import { HomeComponent } from './home/home.component';
 import { EventosAdminComponent } from './eventos-main/eventos-admin/eventos-admin.component';
 import { LoginComponent } from './login/login.component';
+import { RegistroComponent } from './registro/registro.component';
 
 const routes: Routes = [
   {path:'',component:HomeComponent},
@@ -20,8 +21,8 @@ const routes: Routes = [
   ]},
   {path: 'confirmacion',component:EventoConfirmacionComponent},
   {path:'admin',component:EventosAdminComponent},
-  {path:'login',component:LoginComponent}//,
-  //{path:'registro',component:RegistroComponent}
+  {path:'login',component:LoginComponent},
+  {path:'registro',component:RegistroComponent}
 ];
 
 @NgModule({

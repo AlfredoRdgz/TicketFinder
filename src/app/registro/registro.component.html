@@ -1,0 +1,40 @@
+<div class="container">
+    <form class="form-signin userRegister" [formGroup]="formulario" action="#">
+        <h1 style="text-align:center">Registrar cuenta</h1>
+        <div class="form-group">
+            <label for="reg_user">Nombre de usuario</label>
+            <input class="form-control" type="text" id="reg_user" formControlName="usuario">
+        </div>
+        <div class="form-group">
+            <label for="reg_email">Correo electrónico</label>
+            <input class="form-control" type="email" name="email" id="reg_email" formControlName="correo">
+        </div>
+        <div class="form-group">
+
+            <label for="reg_password">Contraseña</label>
+            <input class="form-control" type="password" name="password" id="reg_password" formControlName="contrasena">
+
+        </div>
+        <div class="form-group">
+
+            <label for="reg_password1">Repite tu contraseña</label>
+            <input class="form-control" type="password" name="password1" id="reg_password1" formControlName="contrasena2">
+
+        </div>
+
+
+        <div class="form-group">
+            <p id="CaptchaDiv"></p>
+            <label for="CaptchaInput">Ingrese el número anterior:</label>
+            <input class="form-control" type="text" name="CaptchaInput" id="CaptchaInput" size="15" formControlName="captcha"><br>
+        </div>
+
+        <button class="btn btn-lg btn-primary btn-block btn-signin" id="btnRegister" (click)="registrar()" [disabled]="!ValidCaptcha()">Registrar cuenta</button>
+    </form>
+</div>
+
+<div class="container extraElements">
+    <p><a href="tos.html">Términos y condiciones</a> </p>
+    <p><a href="privacy.html">Política de privacidad</a> </p>
+    <p><a href="about.html">Sobre nosotros</a> </p>
+</div>
