@@ -15,6 +15,7 @@ import { EventoCompraComponent } from './eventos-main/evento-compra/evento-compr
 import { EventoAsientosComponent } from './eventos-main/evento-asientos/evento-asientos.component';
 import { EventoPagoComponent } from './eventos-main/evento-pago/evento-pago.component';
 import { EventoConfirmacionComponent } from './eventos-main/evento-confirmacion/evento-confirmacion.component';
+import { EventosAdminComponent } from './eventos-main/eventos-admin/eventos-admin.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { EventoConfirmacionComponent } from './eventos-main/evento-confirmacion/
     EventoCompraComponent,
     EventoAsientosComponent,
     EventoPagoComponent,
-    EventoConfirmacionComponent
+    EventoConfirmacionComponent,
+    EventosAdminComponent
   ],
   imports: [
     BrowserModule,

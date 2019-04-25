@@ -7,6 +7,7 @@ import { EventoPagoComponent } from './eventos-main/evento-pago/evento-pago.comp
 import { EventoAsientosComponent } from './eventos-main/evento-asientos/evento-asientos.component';
 import { EventoConfirmacionComponent } from './eventos-main/evento-confirmacion/evento-confirmacion.component';
 import { HomeComponent } from './home/home.component';
+import { EventosAdminComponent } from './eventos-main/eventos-admin/eventos-admin.component';
 
 const routes: Routes = [
   {path:'',component:HomeComponent},
@@ -16,7 +17,8 @@ const routes: Routes = [
     {path: '',component:EventoAsientosComponent},
     {path: 'comprar',component:EventoPagoComponent},
   ]},
-  {path: 'confirmacion',component:EventoConfirmacionComponent}
+  {path: 'confirmacion',component:EventoConfirmacionComponent},
+  {path:'admin',component:EventosAdminComponent}
 ];
 
 @NgModule({
