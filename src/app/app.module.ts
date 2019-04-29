@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import {ReactiveFormsModule} from '@angular/forms';
+import {ReactiveFormsModule, FormsModule} from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -15,6 +15,8 @@ import { EventoCompraComponent } from './eventos-main/evento-compra/evento-compr
 import { EventoAsientosComponent } from './eventos-main/evento-asientos/evento-asientos.component';
 import { EventoPagoComponent } from './eventos-main/evento-pago/evento-pago.component';
 import { EventoConfirmacionComponent } from './eventos-main/evento-confirmacion/evento-confirmacion.component';
+import { UsuariosMainComponent } from './usuarios-main/usuarios-main.component';
+import { RegisterComponent } from './register/register.component';
 
 @NgModule({
   declarations: [
@@ -29,12 +31,15 @@ import { EventoConfirmacionComponent } from './eventos-main/evento-confirmacion/
     EventoCompraComponent,
     EventoAsientosComponent,
     EventoPagoComponent,
-    EventoConfirmacionComponent
+    EventoConfirmacionComponent,
+    UsuariosMainComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

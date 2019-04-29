@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <title>Registrar cuenta</title>
+    
+</head>
+
+<body>
+    <div class="container">
+        <form class="form-signin userRegister" [formGroup]="formulario" (ngSubmit)="submit()">
+            <h1 style="text-align:center">Registrar cuenta</h1>
+            <div class="form-group">
+                <label for="reg_email">Correo electrónico</label>
+                <input class="form-control" type="text" formControlName="correo" name="correo" id="reg_email">
+                <!--<p class="alert alert-danger" hidden={{!mailFlag}} role="alert">
+                    Error en correo
+                </p>-->
+            </div>
+            <div class="form-group">
+
+                <label for="reg_password">Contraseña</label>
+                <input class="form-control" type="password" formControlName="password" name="password" id="reg_password">
+                <p class="alert alert-danger"  hidden={{passwordFlag}} role="alert">
+                    Las contraseñas deben ser iguales
+                </p>
+
+            </div>
+            <div class="form-group">
+
+                <label for="reg_password1">Repite tu contraseña</label>
+                <input class="form-control" type="password" formControlName="passRep" name="password1" id="reg_password1">
+                <!--<p class="alert alert-danger" hidden={{!passwordRepFlag}} role="alert">
+                    Las contraseñas no son iguales
+                </p>-->
+            </div>
+
+
+            <div class="form-group">
+                <p id="CaptchaDiv">{{code}}</p>
+                <label for="CaptchaInput">Ingrese el número anterior:</label>
+                <input class="form-control" type="text" name="CaptchaInput" id="CaptchaInput" 
+                    size="15" formControlName="captcha" placeholder="Código" min="5" max="5"><br>
+                <p class="alert alert-danger" hidden={{codeFlag}} role="alert">
+                    Captcha incorrecto.
+                </p>
+            </div>
+
+            <button class="btn btn-lg btn-primary btn-block btn-signin" id="btnRegister" 
+                type="submit" [disabled]="!formulario.valid">Registrar cuenta</button>
+
+        </form>
+    </div>
+
+    <div class="container extraElements">
+        <p><a href="tos.html">Términos y condiciones</a> </p>
+        <p><a href="privacy.html">Política de privacidad</a> </p>
+        <p><a href="about.html">Sobre nosotros</a> </p>
+    </div>
+
+    <p>{{formulario.value|json}}</p>
+</body>
+
+</html>

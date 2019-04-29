@@ -1,0 +1,46 @@
+
+body {
+    margin: 0;
+    font-size: 28px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+#CaptchaDiv {
+    font: bold 17px verdana, arial, sans-serif;
+    font-style: italic;
+    color: #000000;
+    background-color: #FFFFFF;
+    padding: 4px;
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+    border-radius: 4px;
+    align-content: center;
+}
+
+#CaptchaInput {
+    margin: 1px 0px 1px 0px;
+    width: 135px;
+}
+
+.userRegister {
+    width: 80%;
+    margin-left: 10%;
+}
+
+
+@media screen and (max-width:500px) {
+    .userRegister {
+        margin-left: 20px;
+        width: calc(100% - 40px);
+    }
+}
+
+.extraElements{
+    margin-top:40px;
+}
+
+.extraElements p {
+    font-size: 16px;
+    text-align: center;
+    margin:0;
+}

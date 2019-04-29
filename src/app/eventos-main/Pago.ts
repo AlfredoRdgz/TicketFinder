@@ -6,6 +6,6 @@ export class Pago {
       public codigo: number,
       public fecha: string,
       public correo: string,
-      public pago:number
-    ){}
+      public pago: number
+    ) {}
   }
