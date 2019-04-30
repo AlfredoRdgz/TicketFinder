@@ -15,8 +15,13 @@ import { EventoCompraComponent } from './eventos-main/evento-compra/evento-compr
 import { EventoAsientosComponent } from './eventos-main/evento-asientos/evento-asientos.component';
 import { EventoPagoComponent } from './eventos-main/evento-pago/evento-pago.component';
 import { EventoConfirmacionComponent } from './eventos-main/evento-confirmacion/evento-confirmacion.component';
+<<<<<<< HEAD
 import { UsuariosMainComponent } from './usuarios-main/usuarios-main.component';
 import { RegisterComponent } from './register/register.component';
+=======
+import { EventosAdminComponent } from './eventos-main/eventos-admin/eventos-admin.component';
+import { RegistroComponent } from './registro/registro.component';
+>>>>>>> ca8b031b95f7a90f7ea4214a8eb5ecb05a945d1b
 
 @NgModule({
   declarations: [
@@ -32,8 +37,13 @@ import { RegisterComponent } from './register/register.component';
     EventoAsientosComponent,
     EventoPagoComponent,
     EventoConfirmacionComponent,
+<<<<<<< HEAD
     UsuariosMainComponent,
     RegisterComponent
+=======
+    EventosAdminComponent,
+    RegistroComponent
+>>>>>>> ca8b031b95f7a90f7ea4214a8eb5ecb05a945d1b
   ],
   imports: [
     BrowserModule,

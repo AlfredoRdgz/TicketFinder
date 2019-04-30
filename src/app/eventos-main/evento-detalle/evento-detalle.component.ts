@@ -15,8 +15,8 @@ export class EventoDetalleComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    this.dia = Number(this.evento.fecha.split('/')[0]);
-    this.mes = this.evento.fecha.split('/')[1];
+    this.dia = Number(this.evento.fecha.split('-')[2]);
+    this.mes = this.evento.fecha.split('-')[1];
     this.mes === '01' ? this.mes = 'Ene':
     this.mes === '02' ? this.mes = 'Feb':
     this.mes === '03' ? this.mes = 'Mar':

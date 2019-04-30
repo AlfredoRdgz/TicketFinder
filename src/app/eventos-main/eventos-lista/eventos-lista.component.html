@@ -1,3 +1,5 @@
+<h2 *ngIf="eventoService.palabraBusqueda != ''" style="text-align:center;">Resultados de búsqueda para <i>{{eventoService.palabraBusqueda}}</i></h2>
+
 <div class="container" style="padding:20px 0">
   <app-evento-detalle  *ngFor="let evento of eventos" [evento]="evento" style="margin:20px 0;" (click)="comprarBoletos(evento)"></app-evento-detalle>
 </div>
