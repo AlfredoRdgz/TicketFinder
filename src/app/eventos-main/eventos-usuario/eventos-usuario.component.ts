@@ -1,4 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { Evento } from '../Evento';
+import { EventoServiceService } from '../evento-service.service';
+import { Usuario } from 'src/app/Usuario';
+import { UsuariosService } from 'src/app/usuarios.service';
+import { Boleto } from '../Boleto';
 
 @Component({
   selector: 'app-eventos-usuario',
@@ -7,9 +12,26 @@ import { Component, OnInit } from '@angular/core';
 })
 export class EventosUsuarioComponent implements OnInit {
 
-  constructor() { }
+  eventosComprados: Evento[];
+  asientosSeleccionados: Boleto[];
+  usuarioActual: Usuario;
+
+  constructor(private servicioEventos: EventoServiceService, private servicioUsuarios: UsuariosService) { }
 
   ngOnInit() {
+    this.eventosComprados = this.servicioEventos.obtenerEventos().filter(
+      (evento) => evento.boletos.findIndex(Boleto => Boleto.comprador == this.servicioUsuarios.sesionActual.usuario) != -1
+    );
+
+    document.getElementById('closeSpan').onclick = function () {
+      document.getElementById('modal').style.display = "none";
+    }
   }
+
+  verDetalle(evento: Evento) {
+    this.asientosSeleccionados = evento.boletos;
+    document.getElementById('modal').style.display = "block";
+  }
+
 
 }

@@ -8,7 +8,7 @@ import { Boleto } from './Boleto';
 export class EventoServiceService {
   ultimoID = 1;
   listaEventos: Evento[] = [
-    {id:this.ultimoID++,nombre:'Avengers Endgame',descripcion:'Película',fecha:'2019-04-26',hora:'20:00',lugar:'Cinepolis Ciudadela',filas:10,asientosXFila:15,boletos:[new Boleto(1,'Admin','a@gmail.com','B',3,50)]},
+    {id:this.ultimoID++,nombre:'Avengers Endgame',descripcion:'Película',fecha:'2019-04-26',hora:'20:00',lugar:'Cinepolis Ciudadela',filas:10,asientosXFila:15,boletos:[new Boleto(1,'Admin','a@gmail.com','B',3,50),new Boleto(1,'Admin','a@gmail.com','B',4,50),new Boleto(1,'Admin','a@gmail.com','B',5,50)]},
     {id:this.ultimoID++,nombre:'Avengers Endgame',descripcion:'Película',fecha:'2019-04-27',hora:'15:00',lugar:'Cinepolis Galerías',filas:15,asientosXFila:20,boletos:[]}
   ];
   palabraBusqueda:String = '';

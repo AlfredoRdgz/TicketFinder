@@ -1,3 +1,26 @@
-<p>
-  eventos-usuario works!
-</p>
+<div class="container" style="padding:20px 0">
+  <app-evento-detalle  *ngFor="let evento of eventosComprados" [evento]="evento" style="margin:20px 0;" (click)="verDetalle(evento)"></app-evento-detalle>
+</div>
+
+<div id="modal" class="modal">
+  <h3 style="text-align:center;">Asientos comprados</h3>
+<div id="cardContainer" class="modal-content"  style="height:350px; overflow-y: scroll;">
+  <span id="closeSpan" class="close">&times;</span>
+  <div class="container ticket-card">
+    <div class="row">
+      <table class="table ticket-table">
+        <tr>
+          <th style="text-align:center;">Tipo</th>
+          <th style="text-align:center;">Fila</th>
+          <th style="text-align:center;">Asiento</th>
+        </tr>
+        <tr *ngFor="let boleto of asientosSeleccionados">
+          <td style="text-align:center;">Normal</td>
+          <td style="text-align:center;">{{boleto.fila}}</td>
+          <td style="text-align:center;">{{boleto.asiento}}</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</div>
+</div>
