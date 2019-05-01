@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Evento } from '../Evento';
 import { EventoServiceService } from '../evento-service.service';
-import { Usuario } from 'src/app/Usuario';
-import { UsuariosService } from 'src/app/usuarios.service';
+import { Usuario } from '../../Usuario';
+import { UsuariosService } from '../../usuarios.service';
 import { Boleto } from '../Boleto';
 
 @Component({

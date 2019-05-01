@@ -4,7 +4,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { Boleto } from '../Boleto';
 import { Evento } from '../Evento';
 import { ServicioCompraService } from '../servicio-compra.service';
-import { UsuariosService } from 'src/app/usuarios.service';
+import { UsuariosService } from '../../usuarios.service';
 
 @Component({
   selector: 'app-evento-asientos',

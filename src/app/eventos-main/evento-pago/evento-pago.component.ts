@@ -1,6 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Evento } from '../Evento';
-import { Boleto } from '../Boleto';
 import { EventoServiceService } from '../evento-service.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
