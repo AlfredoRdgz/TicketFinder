@@ -19,22 +19,24 @@
 
             <label for="reg_password1">Repite tu contraseña</label>
             <input class="form-control" type="password" name="password1" id="reg_password1" formControlName="contrasena2">
-
+            <p class="alert alert-danger"  [hidden]="passwordsMatch()" role="alert">
+                Las contraseñas deben ser iguales
+            </p>
         </div>
 
 
         <div class="form-group">
-            <p id="CaptchaDiv"></p>
+            <p id="CaptchaDiv">{{code}}</p>
             <label for="CaptchaInput">Ingrese el número anterior:</label>
             <input class="form-control" type="text" name="CaptchaInput" id="CaptchaInput" size="15" formControlName="captcha"><br>
         </div>
 
-        <button class="btn btn-lg btn-primary btn-block btn-signin" id="btnRegister" (click)="registrar()" [disabled]="!ValidCaptcha()">Registrar cuenta</button>
+        <button class="btn btn-lg btn-primary btn-block btn-signin" id="btnRegister" (click)="registrar()" [disabled]="!ValidCaptcha() || !passwordsMatch()">Registrar cuenta</button>
     </form>
 </div>
 
 <div class="container extraElements">
-    <p><a href="tos.html">Términos y condiciones</a> </p>
-    <p><a href="privacy.html">Política de privacidad</a> </p>
-    <p><a href="about.html">Sobre nosotros</a> </p>
+    <p><a href="#">Términos y condiciones</a> </p>
+    <p><a href="#">Política de privacidad</a> </p>
+    <p><a href="#">Sobre nosotros</a> </p>
 </div>

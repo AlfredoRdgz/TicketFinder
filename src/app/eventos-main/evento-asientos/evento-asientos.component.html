@@ -55,8 +55,8 @@
             <table id="seats-layout" align="center">
               <tr *ngFor="let fila of filas" id="fila{{fila}}">
                 <td>{{fila}}</td>
-                <td *ngFor="let asiento of columnas" (click)="elegirBoleto($event,fila,asiento)" id="asiento{{asiento}}">
-                  <p>{{asiento}}</p><img src="{{asientoDisponible}}">
+                <td *ngFor="let asiento of columnas" (click)="elegirBoleto($event,fila,asiento)" id="asiento{{fila}}{{asiento}}">
+                  <p>{{asiento}}</p><img src="{{asientoCorrespondiente(asiento,fila)}}">
                 </td>
                 <td>{{fila}}</td>
               </tr>

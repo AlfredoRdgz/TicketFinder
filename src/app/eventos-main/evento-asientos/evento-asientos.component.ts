@@ -4,6 +4,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { Boleto } from '../Boleto';
 import { Evento } from '../Evento';
 import { ServicioCompraService } from '../servicio-compra.service';
+import { UsuariosService } from 'src/app/usuarios.service';
 
 @Component({
   selector: 'app-evento-asientos',
@@ -14,8 +15,8 @@ export class EventoAsientosComponent implements OnInit {
   private asientoDisponible = 'assets/images/seat_0.png';
   private asientoOcupado = 'assets/images/seat_1.png';
   private asientoSeleccionado = 'assets/images/seat_5.png';
-  private asientoDiscapacidad = 'assets/images/seat_4.png';
-
+  // private asientoDiscapacidad = 'assets/images/seat_4.png';
+  sesionIniciada:boolean;
 
 
   @Input() evento: Evento;
@@ -24,7 +25,7 @@ export class EventoAsientosComponent implements OnInit {
   //@Output() asientosSeleccionados: Boleto[] = this.servicioCompra.asientosSeleccionados;
 
 
-  constructor(private servicioCompra: ServicioCompraService,private servicioEvento: EventoServiceService,private router: Router, private route: ActivatedRoute) { }
+  constructor(private servicioCompra: ServicioCompraService,private servicioEvento: EventoServiceService,private router: Router, private route: ActivatedRoute, private servicioUsuarios:UsuariosService) { }
 
 
   ngOnInit() {
@@ -38,6 +39,16 @@ export class EventoAsientosComponent implements OnInit {
     for (let i = 1; i <= this.evento.asientosXFila; i++) {
       this.columnas.push(i);
     }
+
+    this.sesionIniciada = this.servicioUsuarios.sesionActual != null;
+
+  }
+
+  asientoCorrespondiente(asiento:number,fila:string):string{
+    if(this.evento.boletos.findIndex(boleto=> boleto.fila == fila && boleto.asiento == asiento) != -1){
+      return this.asientoOcupado;
+    }
+    return this.asientoDisponible;
   }
 
   elegirBoleto(event, fila, asiento): void {
@@ -84,8 +95,12 @@ export class EventoAsientosComponent implements OnInit {
 
 
   enviarAComprar(){
-    if(this.servicioCompra.asientosSeleccionados.length == this.servicioCompra.boletosPorComprar)
+    if(this.servicioCompra.asientosSeleccionados.length == this.servicioCompra.boletosPorComprar && this.sesionIniciada==true){
       this.router.navigate(['comprar'],{relativeTo:this.route});
+    }
+    else if(this.servicioCompra.asientosSeleccionados.length == this.servicioCompra.boletosPorComprar){
+      this.router.navigate(['login']);
+    }
     else
       alert("Seleccione todos los asientos o reduzca su cantidad.");
   }

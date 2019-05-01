@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, Validators, FormControl } from '@angular/forms';
+import { UsuariosService } from '../usuarios.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-registro',
@@ -9,7 +11,8 @@ import { FormGroup, Validators, FormControl } from '@angular/forms';
 export class RegistroComponent implements OnInit {
 
   formulario: FormGroup;
-  constructor() { }
+  code:String;
+  constructor(private servicioUsuario:UsuariosService,private router:Router) { }
 
   ngOnInit() {
     this.formulario = new FormGroup({
@@ -27,15 +30,8 @@ export class RegistroComponent implements OnInit {
     let d = Math.ceil(Math.random() * 9) + '';
     let e = Math.ceil(Math.random() * 9) + '';
 
-    let code = a + "" + b + "" + c + "" + d + "" + e;
-    console.log(code);
-    document.getElementById("CaptchaDiv").innerHTML = code;
-
-
+    this.code = a + "" + b + "" + c + "" + d + "" + e;
   }
-
-
-  // Captcha Script
 
   // Validate input against the generated number
   ValidCaptcha():boolean {
@@ -48,9 +44,19 @@ export class RegistroComponent implements OnInit {
       }
   }
 
+  passwordsMatch():boolean{
+    return this.formulario.value.contrasena === this.formulario.value.contrasena2;
+  }
+
   // Remove the spaces from the entered and generated code
   removeSpaces(string:string) {
     return string.split(' ').join('');
   }
 
+  registrar() {
+      // mandar formulario a servicio
+      this.servicioUsuario.agregarDeFormulario(this.formulario.value);
+      this.formulario.reset();
+      this.router.navigate(['home']);
+    }
 }

@@ -19,7 +19,6 @@ export class EventoCompraComponent implements OnInit {
     if(!this.evento){
       this.evento = this.servicioEvento.detalleEvento(Number(this.router.url.split('/')[2]));
     }
-    console.log(this.evento.descripcion);
 
   }
 

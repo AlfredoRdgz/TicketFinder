@@ -17,6 +17,7 @@ import { EventoPagoComponent } from './eventos-main/evento-pago/evento-pago.comp
 import { EventoConfirmacionComponent } from './eventos-main/evento-confirmacion/evento-confirmacion.component';
 import { EventosAdminComponent } from './eventos-main/eventos-admin/eventos-admin.component';
 import { RegistroComponent } from './registro/registro.component';
+import { EventosUsuarioComponent } from './eventos-main/eventos-usuario/eventos-usuario.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { RegistroComponent } from './registro/registro.component';
     EventoPagoComponent,
     EventoConfirmacionComponent,
     EventosAdminComponent,
-    RegistroComponent
+    RegistroComponent,
+    EventosUsuarioComponent
   ],
   imports: [
     BrowserModule,

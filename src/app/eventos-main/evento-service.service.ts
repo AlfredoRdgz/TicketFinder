@@ -8,7 +8,7 @@ import { Boleto } from './Boleto';
 export class EventoServiceService {
   ultimoID = 1;
   listaEventos: Evento[] = [
-    {id:this.ultimoID++,nombre:'Avengers Endgame',descripcion:'Película',fecha:'2019-04-26',hora:'20:00',lugar:'Cinepolis Ciudadela',filas:10,asientosXFila:15,boletos:[]},
+    {id:this.ultimoID++,nombre:'Avengers Endgame',descripcion:'Película',fecha:'2019-04-26',hora:'20:00',lugar:'Cinepolis Ciudadela',filas:10,asientosXFila:15,boletos:[new Boleto(1,'Admin','a@gmail.com','B',3,50)]},
     {id:this.ultimoID++,nombre:'Avengers Endgame',descripcion:'Película',fecha:'2019-04-27',hora:'15:00',lugar:'Cinepolis Galerías',filas:15,asientosXFila:20,boletos:[]}
   ];
   palabraBusqueda:String = '';
@@ -22,13 +22,19 @@ export class EventoServiceService {
     console.log(JSON.stringify(evento));
   }
 
-  agregarBoleto(idEvento:number, comprador:string, correo:string, fila:string, asiento:number,costo:number){
+  /*agregarBoleto(idEvento:number, comprador:string, correo:string, fila:string, asiento:number,costo:number){
     // Creando boleto
     let boleto = new Boleto(idEvento,comprador,correo,fila,asiento,costo);
     // Agregando el boleto vendido al evento
     let evento = this.listaEventos.find(evento=>evento.id == idEvento);
     evento.boletos.push(boleto);
     // Actualizar el emisor de detalles si corresponde
+  }*/
+
+  agregarBoleto(idEvento:number,boleto:Boleto){
+    // Agregando el boleto vendido al evento
+    let evento = this.listaEventos.find(evento=>evento.id == idEvento);
+    evento.boletos.push(boleto);
   }
 
   asignarBusqueda(palabra:String){

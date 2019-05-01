@@ -13,7 +13,6 @@ import { ServicioCompraService } from '../servicio-compra.service';
 })
 export class EventoPagoComponent implements OnInit {
 
-  @Input() arregloBoletos:Boleto[];
   @Input() evento:Evento;
   formulario: FormGroup;
 
@@ -23,7 +22,6 @@ export class EventoPagoComponent implements OnInit {
     if(!this.evento){
       this.evento = this.servicioEvento.detalleEvento(Number(this.router.url.split('/')[2]));
     }
-    console.log(this.evento.descripcion);
       this.formulario = new FormGroup({
         opcion:new FormControl(''),
         nombre:new FormControl('',[
@@ -37,9 +35,12 @@ export class EventoPagoComponent implements OnInit {
         correo: new FormControl('',[Validators.required,Validators.email])
       });
     }
+
     submit() {
-      console.log(this.formulario.value);
       this.servicioCompra.confirmarCompra(this.formulario.value);
+      for(let boleto of this.servicioCompra.asientosSeleccionados){
+        this.servicioEvento.agregarBoleto(this.evento.id,boleto);
+      }
       this.formulario.reset();
       this.router.navigate(['confirmacion']);
     }
