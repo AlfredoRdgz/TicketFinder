@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Evento } from './Evento';
 import { Boleto } from './Boleto';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -9,11 +9,11 @@ import { HttpClient } from '@angular/common/http';
 export class EventoServiceService {
   ultimoID = 1;
   listaEventos: Evento[] = [];
-  palabraBusqueda:String = '';
+  palabraBusqueda:string = '';
 
   constructor(private http:HttpClient) { 
     // Obteniendo eventos
-    this.http.get('http://localhost:3000/api/eventos').subscribe( (data:Evento[]) =>{
+    this.http.get('https://ticketfinder-rest.herokuapp.com/api/eventos').subscribe( (data:Evento[]) =>{
       for (let i=0; i < data.length; i++){
         let nuevoEvento = new Evento(data[i].id,data[i].nombre,data[i].descripcion,data[i].fecha,data[i].hora,data[i].lugar,data[i].filas,data[i].asientosXFila,[]);
         // Agregando evento a la lista
@@ -44,21 +44,32 @@ export class EventoServiceService {
     evento.boletos.push(boleto);
   }
 
-  asignarBusqueda(palabra:String){
+  asignarBusqueda(palabra:string){
     this.palabraBusqueda = palabra;
     console.log("Palabra: "+this.palabraBusqueda);
   }
 
   obtenerEventos(): Evento[]{
     // Obtener los eventos de la BD que coincidan con palabraBusqueda y asignarlo a la lista de eventos
+    let parametro = new HttpParams().set('nombre',this.palabraBusqueda);
+    // Limpiando la lista de eventos
+    this.listaEventos = [];
+    // Obteniendo eventos especiales
+    this.http.get('https://ticketfinder-rest.herokuapp.com/api/eventos/buscar',{params: parametro}).subscribe( (data:Evento[]) =>{
+      for (let i=0; i < data.length; i++){
+        let nuevoEvento = new Evento(data[i].id,data[i].nombre,data[i].descripcion,data[i].fecha,data[i].hora,data[i].lugar,data[i].filas,data[i].asientosXFila,[]);
+        // Agregando evento a la lista
+        this.listaEventos.push(nuevoEvento);
+      }
+    });    
     this.palabraBusqueda = '';
-    return this.listaEventos;
+    return this.listaEventos; 
   }
 
   detalleEvento(idEvento:number):Evento{
     let evento = this.listaEventos.find(evento => evento.id == idEvento);
     // Agregar boletos con HTTP request
-    this.http.get('http://localhost:3000/api/boletos/'+idEvento).subscribe((data:Boleto[])=>{
+    this.http.get('https://ticketfinder-rest.herokuapp.com/api/boletos/'+idEvento).subscribe((data:Boleto[])=>{
       for (let j=0; j < data.length; j++){
         let nuevoBoleto = data[j];
         evento.boletos.push(nuevoBoleto);
