@@ -36,12 +36,11 @@ export class EventoAsientosComponent implements OnInit {
     for (let i = 0; i < this.evento.filas; i++) {
       this.filas.push(String.fromCharCode(65 + i));
     }
-    for (let i = 1; i <= this.evento.asientosXFila; i++) {
+    for (let i = 1; i <= this.evento.asientosXFila; i++){
       this.columnas.push(i);
     }
 
     this.sesionIniciada = this.servicioUsuarios.sesionActual != null;
-
   }
 
   asientoCorrespondiente(asiento:number,fila:string):string{
@@ -53,7 +52,8 @@ export class EventoAsientosComponent implements OnInit {
 
   elegirBoleto(event, fila, asiento): void {
     let boleto = this.servicioCompra.verBoleto(fila,asiento);
-    if (!boleto && this.servicioCompra.puedeApartar()) {
+    let boletoOcupado = this.evento.boletos.findIndex( boleto => boleto.fila === fila && boleto.asiento === asiento);
+    if (!boleto && this.servicioCompra.puedeApartar() && boletoOcupado === -1)  {
       // Si el boleto está disponible y no excede el máximo
       this.servicioCompra.agregarBoleto(new Boleto(this.evento.id, '', '', fila, asiento, 50.0));
       event.currentTarget.querySelector('img').src = this.asientoSeleccionado;
@@ -61,12 +61,14 @@ export class EventoAsientosComponent implements OnInit {
       // Si el boleto ya fue seleccionado se cancela
       this.cancelarBoleto(boleto);
       event.currentTarget.querySelector('img').src = this.asientoDisponible;
-    } else if (this.servicioCompra.asientosSeleccionados.length > 0) {
+    } else if (boletoOcupado === -1 && !this.servicioCompra.puedeApartar()) {
       // Si el boleto está disponible pero ya se excedió el máximo quita el primero y luego inserta el seleccionado
       let asientoPorQuitar = this.servicioCompra.quitarPrimero();
-      document.querySelector(`#fila${asientoPorQuitar.fila} #asiento${asientoPorQuitar.asiento}`).querySelector('img').src = this.asientoDisponible;
+      document.querySelector(`#asiento${asientoPorQuitar.fila}${asientoPorQuitar.asiento}`).querySelector('img').src = this.asientoDisponible;
       this.servicioCompra.agregarBoleto(new Boleto(this.evento.id,'','',fila,asiento,50.0));
       event.currentTarget.querySelector('img').src = this.asientoSeleccionado;
+    }else{
+      alert('Seleccione un asiento disponible');
     }
   }
 
@@ -84,7 +86,7 @@ export class EventoAsientosComponent implements OnInit {
       // Si son menos los que se van a comprar que los seleccionados, se descartan los necesarios
       for (let i = this.servicioCompra.boletosPorComprar; i < this.servicioCompra.asientosSeleccionados.length; i++) {
         let asientoPorQuitar = this.servicioCompra.quitarPrimero();
-        document.querySelector(`#fila${asientoPorQuitar.fila} #asiento${asientoPorQuitar.asiento}`).querySelector('img').src = this.asientoDisponible;
+        document.querySelector(`#asiento${asientoPorQuitar.fila}${asientoPorQuitar.asiento}`).querySelector('img').src = this.asientoDisponible;
       }
     }
   }

@@ -14,8 +14,6 @@ export class ServicioCompraService{
 
   constructor(private servicioEvento:EventoServiceService) { }
 
-  agregar
-
   aumentarDisponibles() {
     this.boletosPorComprar++;
   }

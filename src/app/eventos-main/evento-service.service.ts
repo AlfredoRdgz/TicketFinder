@@ -1,19 +1,26 @@
 import { Injectable } from '@angular/core';
 import { Evento } from './Evento';
 import { Boleto } from './Boleto';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
 })
 export class EventoServiceService {
   ultimoID = 1;
-  listaEventos: Evento[] = [
-    {id:this.ultimoID++,nombre:'Avengers Endgame',descripcion:'Película',fecha:'2019-04-26',hora:'20:00',lugar:'Cinepolis Ciudadela',filas:10,asientosXFila:15,boletos:[new Boleto(1,'Admin','a@gmail.com','B',3,50),new Boleto(1,'Admin','a@gmail.com','B',4,50),new Boleto(1,'Admin','a@gmail.com','B',5,50)]},
-    {id:this.ultimoID++,nombre:'Avengers Endgame',descripcion:'Película',fecha:'2019-04-27',hora:'15:00',lugar:'Cinepolis Galerías',filas:15,asientosXFila:20,boletos:[]}
-  ];
+  listaEventos: Evento[] = [];
   palabraBusqueda:String = '';
 
-  constructor() { }
+  constructor(private http:HttpClient) { 
+    // Obteniendo eventos
+    this.http.get('http://localhost:3000/api/eventos').subscribe( (data:Evento[]) =>{
+      for (let i=0; i < data.length; i++){
+        let nuevoEvento = new Evento(data[i].id,data[i].nombre,data[i].descripcion,data[i].fecha,data[i].hora,data[i].lugar,data[i].filas,data[i].asientosXFila,[]);
+        // Agregando evento a la lista
+        this.listaEventos.push(nuevoEvento);
+      }
+    });
+  }
 
   agregarEvento(nombre:string ,descripcion:string, fecha:string, hora:string, lugar:string, filas:number, asientosXFila:number){
     let evento = new Evento(this.ultimoID++, nombre, descripcion, fecha, hora, lugar, filas, asientosXFila, []);
@@ -49,7 +56,16 @@ export class EventoServiceService {
   }
 
   detalleEvento(idEvento:number):Evento{
-    return this.listaEventos.find(evento => evento.id == idEvento);
+    let evento = this.listaEventos.find(evento => evento.id == idEvento);
+    // Agregar boletos con HTTP request
+    this.http.get('http://localhost:3000/api/boletos/'+idEvento).subscribe((data:Boleto[])=>{
+      for (let j=0; j < data.length; j++){
+        let nuevoBoleto = data[j];
+        evento.boletos.push(nuevoBoleto);
+      }
+    });
+    // Regresar el evento con los boletos actualizados
+    return evento;
   }
 
 }

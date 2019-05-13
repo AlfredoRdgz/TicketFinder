@@ -1,5 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Evento } from '../Evento';
+import { EventoServiceService } from '../evento-service.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-evento-detalle',
