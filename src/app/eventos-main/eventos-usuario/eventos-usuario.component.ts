@@ -20,11 +20,7 @@ export class EventosUsuarioComponent implements OnInit {
   constructor(private servicioEventos: EventoServiceService, private servicioUsuarios: UsuariosService, private http: HttpClient) { }
 
   ngOnInit() {
-    /*this.eventosComprados = this.servicioEventos.listaEventos.filter(
-      (evento) => evento.boletos.findIndex(Boleto => Boleto.correo == this.servicioUsuarios.correoSesion) != -1
-    );*/
-
-    this.servicioEventos.obtenerEventosComprados(this.servicioUsuarios.correoSesion).then((lista:any[]) => {
+    this.servicioEventos.obtenerEventosComprados(this.servicioUsuarios.correoSesion).then((lista: any[]) => {
       this.eventosComprados = lista;
     }).catch((lista: Evento[]) => {
       this.eventosComprados = lista;
