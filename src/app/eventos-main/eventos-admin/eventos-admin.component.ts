@@ -16,7 +16,7 @@ export class EventosAdminComponent implements OnInit {
   constructor(private eventoService:EventoServiceService) { }
 
   ngOnInit() {
-    this.eventos = this.eventoService.obtenerEventos();
+    this.eventoService.obtenerEventos().then((lista:Evento[])=> this.eventos = lista).catch((lista:Evento[])=> this.eventos = lista);
     this.formulario = new FormGroup({
       nombre:new FormControl('',[Validators.required]),
       descripcion:new FormControl('',[Validators.required]),

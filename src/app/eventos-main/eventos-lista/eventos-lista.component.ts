@@ -17,7 +17,7 @@ export class EventosListaComponent implements OnInit {
   constructor(private eventoService: EventoServiceService,private router: Router, private route: ActivatedRoute) { }
 
   ngOnInit() {
-    this.eventos = this.eventoService.obtenerEventos();
+    this.eventoService.obtenerEventos().then((lista:Evento[])=> this.eventos = lista).catch((lista:Evento[])=> this.eventos = lista);
     this.suscripcionEventos = this.eventoService.observableEventos.subscribe(
       (arreglo)=>{
         this.eventos = arreglo;

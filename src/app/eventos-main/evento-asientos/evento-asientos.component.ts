@@ -17,7 +17,7 @@ export class EventoAsientosComponent implements OnInit {
   private asientoOcupado = 'assets/images/seat_1.png';
   private asientoSeleccionado = 'assets/images/seat_5.png';
   private asientoDiscapacidad = 'assets/images/seat_4.png';
-  sesionIniciada: boolean = true;
+  sesionIniciada: boolean = false;
 
 
   @Input() evento: Evento;
@@ -41,14 +41,13 @@ export class EventoAsientosComponent implements OnInit {
       this.columnas.push(i);
     }
 
-   this.servicioUsuarios.tokenValido().subscribe((res:HttpResponse<any>) => {
-      if (res && res['acceso']) { 
+   this.servicioUsuarios.tokenValido().then((res) => {
+      if (res) { 
         this.sesionIniciada = true; 
       } else {
         this.sesionIniciada = false;
-        //this.servicioUsuarios.cerrarSesion();
       }
-    });
+    }).catch((err)=>console.log(err));
   }
 
   asientoCorrespondiente(asiento: number, fila: string): string {

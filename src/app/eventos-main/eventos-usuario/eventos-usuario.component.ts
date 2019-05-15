@@ -4,6 +4,7 @@ import { EventoServiceService } from '../evento-service.service';
 import { Usuario } from '../../Usuario';
 import { UsuariosService } from '../../usuarios.service';
 import { Boleto } from '../Boleto';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-eventos-usuario',
@@ -16,12 +17,18 @@ export class EventosUsuarioComponent implements OnInit {
   asientosSeleccionados: Boleto[];
   usuarioActual: Usuario;
 
-  constructor(private servicioEventos: EventoServiceService, private servicioUsuarios: UsuariosService) { }
+  constructor(private servicioEventos: EventoServiceService, private servicioUsuarios: UsuariosService, private http: HttpClient) { }
 
   ngOnInit() {
-    this.eventosComprados = this.servicioEventos.obtenerEventos().filter(
-      (evento) => evento.boletos.findIndex(Boleto => Boleto.comprador == this.servicioUsuarios.sesionActual.usuario) != -1
-    );
+    /*this.eventosComprados = this.servicioEventos.listaEventos.filter(
+      (evento) => evento.boletos.findIndex(Boleto => Boleto.correo == this.servicioUsuarios.correoSesion) != -1
+    );*/
+
+    this.servicioEventos.obtenerEventosComprados(this.servicioUsuarios.correoSesion).then((lista:any[]) => {
+      this.eventosComprados = lista;
+    }).catch((lista: Evento[]) => {
+      this.eventosComprados = lista;
+    });
 
     document.getElementById('closeSpan').onclick = function () {
       document.getElementById('modal').style.display = "none";
@@ -29,8 +36,14 @@ export class EventosUsuarioComponent implements OnInit {
   }
 
   verDetalle(evento: Evento) {
-    this.asientosSeleccionados = evento.boletos;
-    document.getElementById('modal').style.display = "block";
+    this.asientosSeleccionados = [];
+    this.http.get('https://ticketfinder-rest.herokuapp.com/api/comprado/?correo=' + this.servicioUsuarios.correoSesion + "&idEvento=" + evento.id).subscribe((data: Boleto[]) => {
+      for (let j = 0; j < data.length; j++) {
+        let nuevoBoleto = data[j];
+        this.asientosSeleccionados.push(nuevoBoleto);
+      }
+      document.getElementById('modal').style.display = "block";
+    });
   }
 
 

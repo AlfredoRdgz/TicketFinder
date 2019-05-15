@@ -24,13 +24,12 @@ export class LoginComponent implements OnInit {
   }
 
   iniciarSesion(){
-    this.servicioUsuario.iniciarSesion(this.formulario.value).subscribe(
-      ()=>{
+    this.servicioUsuario.iniciarSesion(this.formulario.value).then(()=>{
         this.formulario.reset();
         if(this.servicioUsuario.tokenSesion){
           this.location.back();
         }
-      },(err)=>{console.log(err);}
+      }   
     );
   }
 

@@ -23,11 +23,10 @@ export class EventoPagoComponent implements OnInit {
       this.evento = this.servicioEvento.detalleEvento(Number(this.router.url.split('/')[2]));
     }
       this.formulario = new FormGroup({
-        opcion:new FormControl(''),
-        nombre:new FormControl('',[
+        opcion:new FormControl('',[Validators.required]),
+        nombre:new FormControl(this.servicioUsuario.usuarioSesion,[
           Validators.required,
-          Validators.minLength(3),
-          Validators.pattern('^[A-Za-z]+$')
+          Validators.pattern('^[A-Za-z].+$')
         ]),
         numero: new FormControl('',[Validators.required]),
         codigo: new FormControl('',[Validators.required]),
@@ -39,6 +38,8 @@ export class EventoPagoComponent implements OnInit {
     submit() {
       this.servicioCompra.confirmarCompra(this.formulario.value);
       for(let boleto of this.servicioCompra.asientosSeleccionados){
+        boleto.comprador = this.formulario.value.nombre;
+        boleto.correo = this.formulario.value.correo;
         this.servicioEvento.agregarBoleto(this.evento.id,boleto);
       }
       this.formulario.reset();

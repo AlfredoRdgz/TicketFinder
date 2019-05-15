@@ -14,6 +14,7 @@ export class UsuariosService {
   administrador = new Subject<any>();
   tokenSesion: string;
   correoSesion: string;
+  usuarioSesion: string;
 
 
   constructor(private http: HttpClient) { }
@@ -22,14 +23,14 @@ export class UsuariosService {
   agregarUsuario(usuario: string, correo: string, contraseña: string) {
     const cuenta = new Usuario(this.lastId++, usuario, correo, contraseña, '', false);
     // Haciendo un post para registrar al usuario
-    let headers = new HttpHeaders({'Content-Type':'application/json'});
-    this.http.post('https://ticketfinder-rest.herokuapp.com/api/usuario',cuenta,{headers:headers,observe:'response'}).subscribe(
-      (res:HttpResponse<any>) =>{
+    let headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    this.http.post('https://ticketfinder-rest.herokuapp.com/api/usuario', cuenta, { headers: headers, observe: 'response' }).subscribe(
+      (res: HttpResponse<any>) => {
         this.tokenSesion = res.headers.get('x-auth');
         this.correoSesion = res.headers.get('x-user');
         this.administrador.next(res.body);
       }
-    );  
+    );
   }
 
   agregarDeFormulario(formulario: any) {
@@ -55,50 +56,57 @@ export class UsuariosService {
   detallesUsuario(correo: string): Usuario {
     let usuario;
     // Obteniendo usuarios
-    this.http.get('https://ticketfinder-rest.herokuapp.com/api/usuario/?correo='+correo).subscribe((data: Usuario) => {
-        usuario = data;
+    this.http.get('https://ticketfinder-rest.herokuapp.com/api/usuario/?correo=' + correo).subscribe((data: Usuario) => {
+      usuario = data;
     });
     return usuario;
   }
 
   iniciarSesion(formulario: any) {
-    let headers = new HttpHeaders({'Content-Type':'application/json'});
-    let request = this.http.post('https://ticketfinder-rest.herokuapp.com/api/usuario/login',{correo:formulario.usuario,contrasena:formulario.contrasena},{headers:headers,observe:'response'});
-    request.subscribe(
-      (res:HttpResponse<any>) =>{
-        if(res.status == 200){
+    let headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    return new Promise((resolve, reject)=>{
+    this.http.post('https://ticketfinder-rest.herokuapp.com/api/usuario/login', { correo: formulario.usuario, contrasena: formulario.contrasena }, { headers: headers, observe: 'response' }).subscribe(
+      (res: HttpResponse<any>) => {
+        if (res.status == 200) {
           this.tokenSesion = res.headers.get('x-auth');
           this.correoSesion = res.headers.get('x-user');
+          this.usuarioSesion = res.body.usuario;
           this.administrador.next(res.body);
-        }else{
-           alert('La cuenta ingresada tiene errores. Pruebe nuevamente');
+          resolve(true);
+        } else {
+          alert('La cuenta ingresada tiene errores. Pruebe nuevamente');
+          resolve(false);
         }
       }
     );
-    return request;
+    });
   }
 
-  tokenValido(){
-    let headers = new HttpHeaders({'Content-Type':'application/json','x-auth':this.tokenSesion,'x-user':this.correoSesion});
-    let request = this.http.get('https://ticketfinder-rest.herokuapp.com/api/usuario/validar',{headers:headers});
-    request.subscribe((res:HttpResponse<any>) => {
-      if (res['acceso']) { 
-        console.log("Body "+JSON.stringify(res));
-      } else {
-        this.cerrarSesion();
-      }
+  tokenValido() {
+    return new Promise((resolve, reject) => {
+      let headers = new HttpHeaders({ 'Content-Type': 'application/json', 'x-auth': this.tokenSesion, 'x-user': this.correoSesion });
+      this.http.get('https://ticketfinder-rest.herokuapp.com/api/usuario/validar', { headers: headers }).subscribe((res: HttpResponse<any>) => {
+        if (res) {
+          console.log("Body " + JSON.stringify(res));
+          resolve(res);
+        } else {
+          this.cerrarSesion();
+          reject('Error');
+        }
+      });
     });
-    return request;
+
   }
 
   cerrarSesion() {
-    let headers = new HttpHeaders({'Content-Type':'application/json','x-auth':this.tokenSesion,'x-user':this.correoSesion});
+    let headers = new HttpHeaders({ 'Content-Type': 'application/json', 'x-auth': this.tokenSesion, 'x-user': this.correoSesion });
     console.log(JSON.stringify(headers));
-    this.http.post('https://ticketfinder-rest.herokuapp.com/api/usuario/logout',{},{headers:headers,observe:'response' as 'body',responseType:'json'}).subscribe(
-      (res:HttpResponse<any>) =>{
-        if(res.status == 200){
+    this.http.post('https://ticketfinder-rest.herokuapp.com/api/usuario/logout', {}, { headers: headers, observe: 'response' as 'body', responseType: 'json' }).subscribe(
+      (res: HttpResponse<any>) => {
+        if (res.status == 200) {
           this.tokenSesion = null;
           this.correoSesion = null;
+          this.usuarioSesion = null;
           this.administrador.next(null);
         }
       }
