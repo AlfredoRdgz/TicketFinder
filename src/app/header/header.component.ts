@@ -16,23 +16,20 @@ export class HeaderComponent implements OnInit {
   sesionIniciada:boolean;
   administrador: boolean;
   suscripcionSesion: Subscription;
-  usuarioActual:Usuario;
+  usuarioActual: string;
   constructor(private servicioEventos: EventoServiceService, private router: Router, private servicioUsuarios: UsuariosService) { }
   listaEventos = true;
   buscador: FormGroup;
 
   ngOnInit() {
     this.buscador = new FormGroup({
-      busqueda: new FormControl('', [
-        Validators.required,
-        Validators.minLength(3)
-      ])
+      busqueda: new FormControl('',)
     });
     this.suscripcionSesion = this.servicioUsuarios.administrador.subscribe(
-      (usuario: Usuario) => { 
-        if(usuario) {this.administrador = usuario.esAdmin; this.sesionIniciada = true;}
-        else{ this.administrador = false; this.sesionIniciada = false;}
-        this.usuarioActual = usuario;
+      (respuesta) => {
+        if(respuesta && respuesta.esAdmin) {this.administrador = true; this.sesionIniciada = true; this.usuarioActual = respuesta.usuario; }
+        else if(respuesta){this.sesionIniciada = true; this.usuarioActual = respuesta.usuario; }
+        else{ this.administrador = false; this.sesionIniciada = false; this.usuarioActual = null;}
       },
       (error: any) => { console.log(error); },
       () => { console.log('Completado '); }

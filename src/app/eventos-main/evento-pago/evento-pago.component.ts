@@ -4,6 +4,7 @@ import { EventoServiceService } from '../evento-service.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ServicioCompraService } from '../servicio-compra.service';
+import { UsuariosService } from 'src/app/usuarios.service';
 
 @Component({
   selector: 'app-evento-pago',
@@ -15,7 +16,7 @@ export class EventoPagoComponent implements OnInit {
   @Input() evento:Evento;
   formulario: FormGroup;
 
-  constructor(private servicioCompra:ServicioCompraService,private servicioEvento: EventoServiceService,private router: Router, private route: ActivatedRoute) { }
+  constructor(private servicioUsuario:UsuariosService,private servicioCompra:ServicioCompraService,private servicioEvento: EventoServiceService,private router: Router, private route: ActivatedRoute) { }
 
   ngOnInit() {
     if(!this.evento){
@@ -31,7 +32,7 @@ export class EventoPagoComponent implements OnInit {
         numero: new FormControl('',[Validators.required]),
         codigo: new FormControl('',[Validators.required]),
         fecha: new FormControl('',[Validators.required]),
-        correo: new FormControl('',[Validators.required,Validators.email])
+        correo: new FormControl(this.servicioUsuario.correoSesion,[Validators.required,Validators.email])
       });
     }
 

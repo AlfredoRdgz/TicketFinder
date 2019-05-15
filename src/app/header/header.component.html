@@ -19,7 +19,7 @@
   <a *ngIf="sesionIniciada" href="#" routerLink="/misEventos">Mis eventos</a>
   <a *ngIf="administrador" href="#" routerLink="/admin">Administración</a>
   <a *ngIf="sesionIniciada" href="#" routerLink="#" (click)="cerrarSesion()" style="float:right">Cerrar Sesión</a>
-  <a *ngIf="sesionIniciada" href="#" routerLink="#" style="float:right">{{usuarioActual.usuario}}</a>
+  <a *ngIf="sesionIniciada" href="#" routerLink="#" style="float:right">{{usuarioActual}}</a>
   <a *ngIf="!sesionIniciada"id="menu_login" href="#" routerLink="/login" style="float: right">Iniciar Sesión</a>
   <a *ngIf="!sesionIniciada" id="menu_register" href="#" routerLink="/registro" style="float:right">Crear cuenta</a>
 </div>

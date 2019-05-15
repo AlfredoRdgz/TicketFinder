@@ -4,6 +4,7 @@ export class Usuario {
         public usuario:string,
         public correo: string,
         public contrasena: string,
+        public token: string,
         public esAdmin: boolean
     ) {}
 }

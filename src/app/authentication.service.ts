@@ -10,7 +10,7 @@ export class AuthenticationService implements CanActivate {
   constructor(private servicioUsuario:UsuariosService) { }
 
   canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot):boolean{
-    if(this.servicioUsuario.sesionActual){
+    if(this.servicioUsuario.tokenSesion){
       return true;
     }
     return false;

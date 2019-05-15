@@ -5,6 +5,7 @@ import { Boleto } from '../Boleto';
 import { Evento } from '../Evento';
 import { ServicioCompraService } from '../servicio-compra.service';
 import { UsuariosService } from '../../usuarios.service';
+import { HttpResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-evento-asientos',
@@ -15,8 +16,8 @@ export class EventoAsientosComponent implements OnInit {
   private asientoDisponible = 'assets/images/seat_0.png';
   private asientoOcupado = 'assets/images/seat_1.png';
   private asientoSeleccionado = 'assets/images/seat_5.png';
-  // private asientoDiscapacidad = 'assets/images/seat_4.png';
-  sesionIniciada:boolean;
+  private asientoDiscapacidad = 'assets/images/seat_4.png';
+  sesionIniciada: boolean = true;
 
 
   @Input() evento: Evento;
@@ -25,35 +26,42 @@ export class EventoAsientosComponent implements OnInit {
   //@Output() asientosSeleccionados: Boleto[] = this.servicioCompra.asientosSeleccionados;
 
 
-  constructor(private servicioCompra: ServicioCompraService,private servicioEvento: EventoServiceService,private router: Router, private route: ActivatedRoute, private servicioUsuarios:UsuariosService) { }
+  constructor(private servicioCompra: ServicioCompraService, private servicioEvento: EventoServiceService, private router: Router, private route: ActivatedRoute, private servicioUsuarios: UsuariosService) { }
 
 
   ngOnInit() {
-    if(!this.evento){
+    if (!this.evento) {
       let id = Number(this.router.url.split('eventos/')[1]);
       this.evento = this.servicioEvento.detalleEvento(id);
     }
     for (let i = 0; i < this.evento.filas; i++) {
       this.filas.push(String.fromCharCode(65 + i));
     }
-    for (let i = 1; i <= this.evento.asientosXFila; i++){
+    for (let i = 1; i <= this.evento.asientosXFila; i++) {
       this.columnas.push(i);
     }
 
-    this.sesionIniciada = this.servicioUsuarios.sesionActual != null;
+   this.servicioUsuarios.tokenValido().subscribe((res:HttpResponse<any>) => {
+      if (res && res['acceso']) { 
+        this.sesionIniciada = true; 
+      } else {
+        this.sesionIniciada = false;
+        //this.servicioUsuarios.cerrarSesion();
+      }
+    });
   }
 
-  asientoCorrespondiente(asiento:number,fila:string):string{
-    if(this.evento.boletos.findIndex(boleto=> boleto.fila == fila && boleto.asiento == asiento) != -1){
+  asientoCorrespondiente(asiento: number, fila: string): string {
+    if (this.evento.boletos.findIndex(boleto => boleto.fila == fila && boleto.asiento == asiento) != -1) {
       return this.asientoOcupado;
     }
     return this.asientoDisponible;
   }
 
   elegirBoleto(event, fila, asiento): void {
-    let boleto = this.servicioCompra.verBoleto(fila,asiento);
-    let boletoOcupado = this.evento.boletos.findIndex( boleto => boleto.fila === fila && boleto.asiento === asiento);
-    if (!boleto && this.servicioCompra.puedeApartar() && boletoOcupado === -1)  {
+    let boleto = this.servicioCompra.verBoleto(fila, asiento);
+    let boletoOcupado = this.evento.boletos.findIndex(boleto => boleto.fila === fila && boleto.asiento === asiento);
+    if (!boleto && this.servicioCompra.puedeApartar() && boletoOcupado === -1) {
       // Si el boleto está disponible y no excede el máximo
       this.servicioCompra.agregarBoleto(new Boleto(this.evento.id, '', '', fila, asiento, 50.0));
       event.currentTarget.querySelector('img').src = this.asientoSeleccionado;
@@ -65,15 +73,15 @@ export class EventoAsientosComponent implements OnInit {
       // Si el boleto está disponible pero ya se excedió el máximo quita el primero y luego inserta el seleccionado
       let asientoPorQuitar = this.servicioCompra.quitarPrimero();
       document.querySelector(`#asiento${asientoPorQuitar.fila}${asientoPorQuitar.asiento}`).querySelector('img').src = this.asientoDisponible;
-      this.servicioCompra.agregarBoleto(new Boleto(this.evento.id,'','',fila,asiento,50.0));
+      this.servicioCompra.agregarBoleto(new Boleto(this.evento.id, '', '', fila, asiento, 50.0));
       event.currentTarget.querySelector('img').src = this.asientoSeleccionado;
-    }else{
+    } else {
       alert('Seleccione un asiento disponible');
     }
   }
 
   cancelarBoleto(boleto: Boleto) {
-    this.servicioCompra.cancelarBoleto(boleto);  
+    this.servicioCompra.cancelarBoleto(boleto);
   }
 
   aumentarDisponibles() {
@@ -96,11 +104,12 @@ export class EventoAsientosComponent implements OnInit {
   }
 
 
-  enviarAComprar(){
-    if(this.servicioCompra.asientosSeleccionados.length == this.servicioCompra.boletosPorComprar && this.sesionIniciada==true){
-      this.router.navigate(['comprar'],{relativeTo:this.route});
+  enviarAComprar() {
+    if (this.servicioCompra.asientosSeleccionados.length == this.servicioCompra.boletosPorComprar && this.sesionIniciada == true) {
+      console.log('Enviando a la ruta de compra...');
+      this.router.navigate(['comprar'], { relativeTo: this.route });
     }
-    else if(this.servicioCompra.asientosSeleccionados.length == this.servicioCompra.boletosPorComprar){
+    else if (this.servicioCompra.asientosSeleccionados.length == this.servicioCompra.boletosPorComprar) {
       this.router.navigate(['login']);
     }
     else

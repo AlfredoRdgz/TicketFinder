@@ -24,13 +24,14 @@ export class LoginComponent implements OnInit {
   }
 
   iniciarSesion(){
-    this.servicioUsuario.iniciarSesion(this.formulario.value);
-    this.formulario.reset();
-    if(this.servicioUsuario.sesionActual){
-      this.location.back();
-    }else{
-      alert('La cuenta ingresada tiene errores. Pruebe nuevamente');
-    }
+    this.servicioUsuario.iniciarSesion(this.formulario.value).subscribe(
+      ()=>{
+        this.formulario.reset();
+        if(this.servicioUsuario.tokenSesion){
+          this.location.back();
+        }
+      },(err)=>{console.log(err);}
+    );
   }
 
 }

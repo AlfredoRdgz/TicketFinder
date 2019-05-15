@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { EventoServiceService } from '../evento-service.service';
 import { Evento } from '../Evento';
 import { Router, ActivatedRoute } from '@angular/router';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-eventos-lista',
@@ -11,11 +12,22 @@ import { Router, ActivatedRoute } from '@angular/router';
 export class EventosListaComponent implements OnInit {
 
   eventos: Evento[];
+  suscripcionEventos: Subscription;
 
   constructor(private eventoService: EventoServiceService,private router: Router, private route: ActivatedRoute) { }
 
   ngOnInit() {
     this.eventos = this.eventoService.obtenerEventos();
+    this.suscripcionEventos = this.eventoService.observableEventos.subscribe(
+      (arreglo)=>{
+        this.eventos = arreglo;
+      },
+      (error)=>{
+        console.log(error);
+      },()=>{
+        console.log('Completado');
+      }
+    )
   }
 
   comprarBoletos(evento: Evento){
